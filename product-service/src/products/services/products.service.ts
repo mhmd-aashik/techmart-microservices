@@ -9,4 +9,8 @@ export class ProductsService {
   async create(dto: CreateProductDto) {
     return this.repository.createProduct(dto);
   }
+
+  async findAll() {
+    return this.repository.findAll();
+  }
 }

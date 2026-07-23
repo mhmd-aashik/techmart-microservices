@@ -11,4 +11,12 @@ export class ProductsRepository {
       data: dto,
     });
   }
+
+  async findAll() {
+    return this.prisma.product.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
 }

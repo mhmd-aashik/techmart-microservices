@@ -18,4 +18,18 @@ export class ProductsController {
       updatedAt: product.updatedAt.toISOString(),
     };
   }
+
+  @GrpcMethod('ProductService', 'GetProducts')
+  async getProducts() {
+    const products = await this.productsService.findAll();
+
+    return {
+      products: products.map((product) => ({
+        ...product,
+        price: product.price.toNumber(),
+        createdAt: product.createdAt.toISOString(),
+        updatedAt: product.updatedAt.toISOString(),
+      })),
+    };
+  }
 }

@@ -4,7 +4,10 @@ package product;
 
 service ProductService {
   rpc CreateProduct (CreateProductRequest) returns (ProductResponse);
+  rpc GetProducts (Empty) returns (GetProductsResponse);
 }
+
+message Empty {}
 
 message CreateProductRequest {
   string name = 1;
@@ -23,4 +26,8 @@ message ProductResponse {
   int32 stockQuantity = 6;
   string createdAt = 7;
   string updatedAt = 8;
+}
+
+message GetProductsResponse {
+  repeated ProductResponse products = 1;
 }
