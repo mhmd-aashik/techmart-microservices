@@ -7,7 +7,7 @@ import { GetProductsResponse } from 'src/product-grpc.interface';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('products')
+  @Get()
   getProducts(): Observable<GetProductsResponse> {
     return this.appService.getProducts();
   }

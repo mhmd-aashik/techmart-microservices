@@ -4,6 +4,7 @@ import { GrpcMethod, RpcException } from '@nestjs/microservices';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { ProductsService } from '../services/products.service';
 import { GetProductByIdDto } from '../dto/get-product-by-id.dto';
+import { GetProductsDto } from '../dto/get-products.dto';
 
 @Controller()
 export class ProductsController {
@@ -21,16 +22,20 @@ export class ProductsController {
   }
 
   @GrpcMethod('ProductService', 'GetProducts')
-  async getProducts() {
-    const products = await this.productsService.findAll();
+  async getProducts(data: GetProductsDto) {
+    const page = data.page || 1;
+    const limit = data.limit || 10;
+
+    const result = await this.productsService.findAll(page, limit);
 
     return {
-      products: products.map((product) => ({
+      products: result.products.map((product) => ({
         ...product,
         price: product.price.toNumber(),
         createdAt: product.createdAt.toISOString(),
         updatedAt: product.updatedAt.toISOString(),
       })),
+      meta: result.meta,
     };
   }
 

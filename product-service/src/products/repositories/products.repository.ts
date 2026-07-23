@@ -12,12 +12,24 @@ export class ProductsRepository {
     });
   }
 
-  async findAll() {
-    return this.prisma.product.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+  async findAll(page: number, limit: number) {
+    const skip = (page - 1) * limit;
+
+    const [products, totalItems] = await this.prisma.$transaction([
+      this.prisma.product.findMany({
+        skip,
+        take: limit,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      }),
+      this.prisma.product.count(),
+    ]);
+
+    return {
+      products,
+      totalItems,
+    };
   }
 
   async findById(id: number) {

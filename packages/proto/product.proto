@@ -4,7 +4,7 @@ package product;
 
 service ProductService {
   rpc CreateProduct (CreateProductRequest) returns (ProductResponse);
-  rpc GetProducts (Empty) returns (GetProductsResponse);
+  rpc GetProducts (GetProductsRequest) returns (GetProductsResponse);
   rpc GetProductById (GetProductByIdRequest) returns (ProductResponse);
 }
 
@@ -31,8 +31,25 @@ message ProductResponse {
 
 message GetProductsResponse {
   repeated ProductResponse products = 1;
+  PaginationMeta meta = 2;
+
 }
 
 message GetProductByIdRequest {
   int32 id = 1;
 }
+
+message GetProductsRequest {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+message PaginationMeta {
+  int32 page = 1;
+  int32 limit = 2;
+  int32 totalItems = 3;
+  int32 totalPages = 4;
+  bool hasNextPage = 5;
+  bool hasPreviousPage = 6;
+}
+

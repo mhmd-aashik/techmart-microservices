@@ -10,8 +10,22 @@ export class ProductsService {
     return this.repository.createProduct(dto);
   }
 
-  async findAll() {
-    return this.repository.findAll();
+  async findAll(page: number, limit: number) {
+    const { products, totalItems } = await this.repository.findAll(page, limit);
+
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {
+      products,
+      meta: {
+        page,
+        limit,
+        totalItems,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    };
   }
 
   async findById(id: number) {

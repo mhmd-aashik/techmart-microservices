@@ -5,10 +5,12 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Query,
 } from '@nestjs/common';
 
 import { ProductsService } from '../services/products.service';
 import { CreateProductDto } from '../dto/create-product.dto';
+import { GetProductsQueryDto } from '../dto/get-products-query.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -20,8 +22,8 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  findAll(@Query() query: GetProductsQueryDto) {
+    return this.productsService.findAll(query.page, query.limit);
   }
 
   @Get(':id')
