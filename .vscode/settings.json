@@ -1,4 +1,10 @@
 {
   "js/ts.tsdk.promptToUseWorkspaceVersion": false,
-  "js/ts.tsdk.path": "api-gateway/node_modules/typescript/lib"
+  "js/ts.tsdk.path": "api-gateway/node_modules/typescript/lib",
+  "files.exclude": {
+    "**/product-service/.agents": true,
+    "**/product-service/.windsurf": true,
+    "**/product-service/.claude": true,
+    "**/product-service/skills-lock.json": true
+  }
 }

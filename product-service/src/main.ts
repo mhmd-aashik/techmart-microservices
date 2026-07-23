@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { join } from 'node:path';
+import 'dotenv/config';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -10,7 +11,7 @@ async function bootstrap(): Promise<void> {
       transport: Transport.GRPC,
       options: {
         package: 'product',
-        protoPath: join(__dirname, '../../packages/proto/product.proto'),
+        protoPath: join(__dirname, '../../../packages/proto/product.proto'),
         url: 'localhost:50051',
       },
     },

@@ -3,18 +3,24 @@ syntax = "proto3";
 package product;
 
 service ProductService {
-  rpc GetProducts (GetProductsRequest)
-      returns (GetProductsResponse);
+  rpc CreateProduct (CreateProductRequest) returns (ProductResponse);
 }
 
-message GetProductsRequest {}
+message CreateProductRequest {
+  string name = 1;
+  string description = 2;
+  string sku = 3;
+  double price = 4;
+  int32 stockQuantity = 5;
+}
 
-message Product {
+message ProductResponse {
   int32 id = 1;
   string name = 2;
-  double price = 3;
-}
-
-message GetProductsResponse {
-  repeated Product products = 1;
+  string description = 3;
+  string sku = 4;
+  double price = 5;
+  int32 stockQuantity = 6;
+  string createdAt = 7;
+  string updatedAt = 8;
 }

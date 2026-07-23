@@ -1,0 +1,2 @@
+export const PRODUCT_NAME_MIN_LENGTH = 3;
+export const PRODUCT_NAME_MAX_LENGTH = 200;
