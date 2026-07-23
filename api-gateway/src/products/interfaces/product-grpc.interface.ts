@@ -25,7 +25,12 @@ export interface GetProductsResponse {
   products: ProductResponse[];
 }
 
+export interface GetProductByIdRequest {
+  id: number;
+}
+
 export interface ProductServiceClient {
   createProduct(request: CreateProductRequest): Observable<ProductResponse>;
   getProducts(request: EmptyRequest): Observable<GetProductsResponse>;
+  getProductById(request: GetProductByIdRequest): Observable<ProductResponse>;
 }

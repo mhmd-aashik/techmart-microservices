@@ -1,8 +1,9 @@
 import { Controller } from '@nestjs/common';
-import { GrpcMethod } from '@nestjs/microservices';
+import { GrpcMethod, RpcException } from '@nestjs/microservices';
 
 import { CreateProductDto } from '../dto/create-product.dto';
 import { ProductsService } from '../services/products.service';
+import { GetProductByIdDto } from '../dto/get-product-by-id.dto';
 
 @Controller()
 export class ProductsController {
@@ -30,6 +31,22 @@ export class ProductsController {
         createdAt: product.createdAt.toISOString(),
         updatedAt: product.updatedAt.toISOString(),
       })),
+    };
+  }
+
+  @GrpcMethod('ProductService', 'GetProductById')
+  async getProductById(data: GetProductByIdDto) {
+    const product = await this.productsService.findById(data.id);
+
+    if (!product) {
+      throw new RpcException('Product not found');
+    }
+
+    return {
+      ...product,
+      price: product.price.toNumber(),
+      createdAt: product.createdAt.toISOString(),
+      updatedAt: product.updatedAt.toISOString(),
     };
   }
 }

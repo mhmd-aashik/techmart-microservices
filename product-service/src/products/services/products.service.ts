@@ -13,4 +13,8 @@ export class ProductsService {
   async findAll() {
     return this.repository.findAll();
   }
+
+  async findById(id: number) {
+    return this.repository.findById(id);
+  }
 }

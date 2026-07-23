@@ -28,4 +28,10 @@ export class ProductsService implements OnModuleInit {
   findAll(): Observable<GetProductsResponse> {
     return this.productService.getProducts({});
   }
+
+  findById(id: number) {
+    return this.productService.getProductById({
+      id,
+    });
+  }
 }
