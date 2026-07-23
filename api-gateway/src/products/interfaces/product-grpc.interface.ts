@@ -1,5 +1,7 @@
 import { Observable } from 'rxjs';
 
+export type EmptyRequest = object;
+
 export interface CreateProductRequest {
   name: string;
   description: string;
@@ -19,6 +21,11 @@ export interface ProductResponse {
   updatedAt: string;
 }
 
+export interface GetProductsResponse {
+  products: ProductResponse[];
+}
+
 export interface ProductServiceClient {
   createProduct(request: CreateProductRequest): Observable<ProductResponse>;
+  getProducts(request: EmptyRequest): Observable<GetProductsResponse>;
 }
