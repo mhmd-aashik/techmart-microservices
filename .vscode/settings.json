@@ -1,4 +1,4 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": false
+  "js/ts.tsdk.promptToUseWorkspaceVersion": false,
+  "js/ts.tsdk.path": "api-gateway/node_modules/typescript/lib"
 }
