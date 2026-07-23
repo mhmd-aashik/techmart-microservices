@@ -25,8 +25,9 @@ export class ProductsController {
   async getProducts(data: GetProductsDto) {
     const page = data.page || 1;
     const limit = data.limit || 10;
+    const search = data.search;
 
-    const result = await this.productsService.findAll(page, limit);
+    const result = await this.productsService.findAll(page, limit, search);
 
     return {
       products: result.products.map((product) => ({

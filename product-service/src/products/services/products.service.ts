@@ -10,8 +10,12 @@ export class ProductsService {
     return this.repository.createProduct(dto);
   }
 
-  async findAll(page: number, limit: number) {
-    const { products, totalItems } = await this.repository.findAll(page, limit);
+  async findAll(page: number, limit: number, search?: string) {
+    const { products, totalItems } = await this.repository.findAll(
+      page,
+      limit,
+      search,
+    );
 
     const totalPages = Math.ceil(totalItems / limit);
 

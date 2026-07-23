@@ -1,4 +1,4 @@
-import { IsInt, IsOptional, Max, Min } from 'class-validator';
+import { IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class GetProductsQueryDto {
@@ -14,4 +14,8 @@ export class GetProductsQueryDto {
   @Min(1)
   @Max(100)
   limit = 10;
+
+  @IsOptional()
+  @IsString()
+  search?: string;
 }

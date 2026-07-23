@@ -23,7 +23,7 @@ export class ProductsController {
 
   @Get()
   findAll(@Query() query: GetProductsQueryDto) {
-    return this.productsService.findAll(query.page, query.limit);
+    return this.productsService.findAll(query);
   }
 
   @Get(':id')

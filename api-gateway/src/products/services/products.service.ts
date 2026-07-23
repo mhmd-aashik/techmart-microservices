@@ -2,6 +2,7 @@ import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import type { ClientGrpc } from '@nestjs/microservices';
 import { ProductServiceClient } from '../interfaces/product-grpc.interface';
 import { CreateProductDto } from '../dto/create-product.dto';
+import { GetProductsQueryDto } from '../dto/get-products-query.dto';
 
 @Injectable()
 export class ProductsService implements OnModuleInit {
@@ -21,11 +22,8 @@ export class ProductsService implements OnModuleInit {
     return this.productService.createProduct(dto);
   }
 
-  findAll(page: number, limit: number) {
-    return this.productService.getProducts({
-      page,
-      limit,
-    });
+  findAll(dto: GetProductsQueryDto) {
+    return this.productService.getProducts(dto);
   }
 
   findById(id: number) {
