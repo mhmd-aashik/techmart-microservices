@@ -1,8 +1,13 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import type { ClientGrpc } from '@nestjs/microservices';
-import { ProductServiceClient } from '../interfaces/product-grpc.interface';
+import {
+  ProductResponse,
+  ProductServiceClient,
+} from '../interfaces/product-grpc.interface';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { GetProductsQueryDto } from '../dto/get-products-query.dto';
+import { Observable } from 'rxjs';
+import { UpdateProductDto } from '../dto/update-product.dto';
 
 @Injectable()
 export class ProductsService implements OnModuleInit {
@@ -29,6 +34,13 @@ export class ProductsService implements OnModuleInit {
   findById(id: number) {
     return this.productService.getProductById({
       id,
+    });
+  }
+
+  update(id: number, dto: UpdateProductDto): Observable<ProductResponse> {
+    return this.productService.updateProduct({
+      id,
+      ...dto,
     });
   }
 }

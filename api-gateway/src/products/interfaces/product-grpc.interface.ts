@@ -41,6 +41,15 @@ export interface GetProductsRequest {
   sortOrder?: 'asc' | 'desc';
 }
 
+export interface UpdateProductRequest {
+  id: number;
+  name?: string;
+  description?: string;
+  sku?: string;
+  price?: number;
+  stockQuantity?: number;
+}
+
 export interface PaginationMeta {
   page: number;
   limit: number;
@@ -54,4 +63,5 @@ export interface ProductServiceClient {
   createProduct(request: CreateProductRequest): Observable<ProductResponse>;
   getProducts(request: GetProductsRequest): Observable<GetProductsResponse>;
   getProductById(request: GetProductByIdRequest): Observable<ProductResponse>;
+  updateProduct(request: UpdateProductRequest): Observable<ProductResponse>;
 }

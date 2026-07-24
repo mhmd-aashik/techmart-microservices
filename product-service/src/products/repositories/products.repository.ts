@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateProductDto } from '../dto/create-product.dto';
-import { Prisma } from 'generated/prisma/client';
+import { Prisma, Product } from 'generated/prisma/client';
 import { GetProductsDto } from '../dto/get-products.dto';
+import { UpdateProductDto } from '../dto/update-product.dto';
 
 @Injectable()
 export class ProductsRepository {
@@ -110,6 +111,31 @@ export class ProductsRepository {
       where: {
         id,
       },
+    });
+  }
+
+  async updateProduct(id: number, dto: UpdateProductDto): Promise<Product> {
+    const data: Prisma.ProductUpdateInput = {
+      ...(dto.name !== undefined && {
+        name: dto.name,
+      }),
+      ...(dto.description !== undefined && {
+        description: dto.description,
+      }),
+      ...(dto.sku !== undefined && {
+        sku: dto.sku,
+      }),
+      ...(dto.price !== undefined && {
+        price: new Prisma.Decimal(dto.price),
+      }),
+      ...(dto.stockQuantity !== undefined && {
+        stockQuantity: dto.stockQuantity,
+      }),
+    };
+
+    return this.prisma.product.update({
+      where: { id },
+      data,
     });
   }
 }

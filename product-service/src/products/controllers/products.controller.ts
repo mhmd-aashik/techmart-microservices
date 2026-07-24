@@ -5,6 +5,11 @@ import { CreateProductDto } from '../dto/create-product.dto';
 import { ProductsService } from '../services/products.service';
 import { GetProductByIdDto } from '../dto/get-product-by-id.dto';
 import { GetProductsDto } from '../dto/get-products.dto';
+import { UpdateProductDto } from '../dto/update-product.dto';
+
+interface UpdateProductRequest extends UpdateProductDto {
+  id: number;
+}
 
 @Controller()
 export class ProductsController {
@@ -43,6 +48,20 @@ export class ProductsController {
     if (!product) {
       throw new RpcException('Product not found');
     }
+
+    return {
+      ...product,
+      price: product.price.toNumber(),
+      createdAt: product.createdAt.toISOString(),
+      updatedAt: product.updatedAt.toISOString(),
+    };
+  }
+
+  @GrpcMethod('ProductService', 'UpdateProduct')
+  async updateProduct(request: UpdateProductRequest) {
+    const { id, ...dto } = request;
+
+    const product = await this.productsService.update(id, dto);
 
     return {
       ...product,

@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -11,6 +12,7 @@ import {
 import { ProductsService } from '../services/products.service';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { GetProductsQueryDto } from '../dto/get-products-query.dto';
+import { UpdateProductDto } from '../dto/update-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -29,5 +31,10 @@ export class ProductsController {
   @Get(':id')
   findById(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.findById(id);
+  }
+
+  @Patch(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateProductDto) {
+    return this.productsService.update(id, dto);
   }
 }

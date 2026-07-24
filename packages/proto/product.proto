@@ -6,6 +6,7 @@ service ProductService {
   rpc CreateProduct (CreateProductRequest) returns (ProductResponse);
   rpc GetProducts (GetProductsRequest) returns (GetProductsResponse);
   rpc GetProductById (GetProductByIdRequest) returns (ProductResponse);
+  rpc UpdateProduct (UpdateProductRequest) returns (ProductResponse);
 }
 
 message Empty {}
@@ -50,6 +51,16 @@ message GetProductsRequest {
 
   string sortBy = 7;
   string sortOrder = 8;
+}
+
+message UpdateProductRequest {
+  int32 id = 1;
+
+  optional string name = 2;
+  optional string description = 3;
+  optional string sku = 4;
+  optional double price = 5;
+  optional int32 stockQuantity = 6;
 }
 
 message PaginationMeta {
