@@ -11,6 +11,11 @@ interface UpdateProductRequest extends UpdateProductDto {
   id: number;
 }
 
+interface UpdateInventoryRequest {
+  id: number;
+  stockQuantity: number;
+}
+
 @Controller()
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
@@ -62,6 +67,21 @@ export class ProductsController {
     const { id, ...dto } = request;
 
     const product = await this.productsService.update(id, dto);
+
+    return {
+      ...product,
+      price: product.price.toNumber(),
+      createdAt: product.createdAt.toISOString(),
+      updatedAt: product.updatedAt.toISOString(),
+    };
+  }
+
+  @GrpcMethod('ProductService', 'UpdateInventory')
+  async updateInventory(request: UpdateInventoryRequest) {
+    const product = await this.productsService.updateInventory(
+      request.id,
+      request.stockQuantity,
+    );
 
     return {
       ...product,

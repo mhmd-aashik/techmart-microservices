@@ -70,4 +70,22 @@ export class ProductsService {
       throw error;
     }
   }
+
+  async updateInventory(id: number, stockQuantity: number) {
+    try {
+      return await this.repository.updateInventory(id, stockQuantity);
+    } catch (error: unknown) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new RpcException({
+          code: status.NOT_FOUND,
+          message: `Product ${id} was not found.`,
+        });
+      }
+
+      throw error;
+    }
+  }
 }

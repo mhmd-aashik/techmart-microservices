@@ -50,6 +50,11 @@ export interface UpdateProductRequest {
   stockQuantity?: number;
 }
 
+export interface UpdateInventoryRequest {
+  id: number;
+  stockQuantity: number;
+}
+
 export interface PaginationMeta {
   page: number;
   limit: number;
@@ -64,4 +69,5 @@ export interface ProductServiceClient {
   getProducts(request: GetProductsRequest): Observable<GetProductsResponse>;
   getProductById(request: GetProductByIdRequest): Observable<ProductResponse>;
   updateProduct(request: UpdateProductRequest): Observable<ProductResponse>;
+  updateInventory(request: UpdateInventoryRequest): Observable<ProductResponse>;
 }

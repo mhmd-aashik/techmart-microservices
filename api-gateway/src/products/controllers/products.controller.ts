@@ -13,6 +13,7 @@ import { ProductsService } from '../services/products.service';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { GetProductsQueryDto } from '../dto/get-products-query.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
+import { UpdateInventoryDto } from '../dto/update-inventory.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -36,5 +37,13 @@ export class ProductsController {
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateProductDto) {
     return this.productsService.update(id, dto);
+  }
+
+  @Patch(':id/inventory')
+  updateInventory(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateInventoryDto,
+  ) {
+    return this.productsService.updateInventory(id, dto);
   }
 }

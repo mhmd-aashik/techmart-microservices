@@ -8,6 +8,7 @@ import { CreateProductDto } from '../dto/create-product.dto';
 import { GetProductsQueryDto } from '../dto/get-products-query.dto';
 import { Observable } from 'rxjs';
 import { UpdateProductDto } from '../dto/update-product.dto';
+import { UpdateInventoryDto } from '../dto/update-inventory.dto';
 
 @Injectable()
 export class ProductsService implements OnModuleInit {
@@ -41,6 +42,16 @@ export class ProductsService implements OnModuleInit {
     return this.productService.updateProduct({
       id,
       ...dto,
+    });
+  }
+
+  updateInventory(
+    id: number,
+    dto: UpdateInventoryDto,
+  ): Observable<ProductResponse> {
+    return this.productService.updateInventory({
+      id,
+      stockQuantity: dto.stockQuantity,
     });
   }
 }
