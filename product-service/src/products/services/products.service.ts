@@ -88,4 +88,22 @@ export class ProductsService {
       throw error;
     }
   }
+
+  async disableProduct(id: number) {
+    try {
+      return await this.repository.disableProduct(id);
+    } catch (error: unknown) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new RpcException({
+          code: status.NOT_FOUND,
+          message: `Active product ${id} was not found.`,
+        });
+      }
+
+      throw error;
+    }
+  }
 }

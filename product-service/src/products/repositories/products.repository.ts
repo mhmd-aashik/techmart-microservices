@@ -31,6 +31,7 @@ export class ProductsRepository {
     const normalizedSearch = search?.trim();
 
     const where: Prisma.ProductWhereInput = {
+      isActive: true,
       ...(normalizedSearch
         ? {
             OR: [
@@ -110,6 +111,7 @@ export class ProductsRepository {
     return this.prisma.product.findUnique({
       where: {
         id,
+        isActive: true,
       },
     });
   }
@@ -134,7 +136,7 @@ export class ProductsRepository {
     };
 
     return this.prisma.product.update({
-      where: { id },
+      where: { id, isActive: true },
       data,
     });
   }
@@ -143,9 +145,23 @@ export class ProductsRepository {
     return this.prisma.product.update({
       where: {
         id,
+        isActive: true,
       },
       data: {
         stockQuantity,
+      },
+    });
+  }
+
+  async disableProduct(id: number) {
+    return this.prisma.product.update({
+      where: {
+        id,
+        isActive: true,
+      },
+      data: {
+        isActive: false,
+        deletedAt: new Date(),
       },
     });
   }

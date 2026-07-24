@@ -16,6 +16,10 @@ interface UpdateInventoryRequest {
   stockQuantity: number;
 }
 
+interface DisableProductRequest {
+  id: number;
+}
+
 @Controller()
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
@@ -88,6 +92,19 @@ export class ProductsController {
       price: product.price.toNumber(),
       createdAt: product.createdAt.toISOString(),
       updatedAt: product.updatedAt.toISOString(),
+    };
+  }
+
+  @GrpcMethod('ProductService', 'DisableProduct')
+  async disableProduct(request: DisableProductRequest) {
+    const product = await this.productsService.disableProduct(request.id);
+
+    return {
+      ...product,
+      price: product.price.toNumber(),
+      createdAt: product.createdAt.toISOString(),
+      updatedAt: product.updatedAt.toISOString(),
+      deletedAt: product.deletedAt?.toISOString(),
     };
   }
 }

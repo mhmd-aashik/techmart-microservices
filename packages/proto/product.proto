@@ -7,8 +7,8 @@ service ProductService {
   rpc GetProducts (GetProductsRequest) returns (GetProductsResponse);
   rpc GetProductById (GetProductByIdRequest) returns (ProductResponse);
   rpc UpdateProduct (UpdateProductRequest) returns (ProductResponse);
-  rpc UpdateInventory(UpdateInventoryRequest)
-      returns (ProductResponse);
+  rpc UpdateInventory(UpdateInventoryRequest) returns (ProductResponse);
+  rpc DisableProduct(DisableProductRequest) returns (ProductResponse);
 }
 
 message Empty {}
@@ -30,6 +30,9 @@ message ProductResponse {
   int32 stockQuantity = 6;
   string createdAt = 7;
   string updatedAt = 8;
+
+  bool isActive = 9;
+  optional string deletedAt = 10;
 }
 
 message GetProductsResponse {
@@ -68,6 +71,10 @@ message UpdateProductRequest {
 message UpdateInventoryRequest {
   int32 id = 1;
   int32 stockQuantity = 2;
+}
+
+message DisableProductRequest {
+  int32 id = 1;
 }
 
 message PaginationMeta {

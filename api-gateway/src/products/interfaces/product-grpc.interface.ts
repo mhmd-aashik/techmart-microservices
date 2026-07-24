@@ -17,6 +17,8 @@ export interface ProductResponse {
   sku: string;
   price: number;
   stockQuantity: number;
+  isActive: boolean;
+  deletedAt: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -64,10 +66,15 @@ export interface PaginationMeta {
   hasPreviousPage: boolean;
 }
 
+export interface DisableProductRequest {
+  id: number;
+}
+
 export interface ProductServiceClient {
   createProduct(request: CreateProductRequest): Observable<ProductResponse>;
   getProducts(request: GetProductsRequest): Observable<GetProductsResponse>;
   getProductById(request: GetProductByIdRequest): Observable<ProductResponse>;
   updateProduct(request: UpdateProductRequest): Observable<ProductResponse>;
   updateInventory(request: UpdateInventoryRequest): Observable<ProductResponse>;
+  disableProduct(request: DisableProductRequest): Observable<ProductResponse>;
 }

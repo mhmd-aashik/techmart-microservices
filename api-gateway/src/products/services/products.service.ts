@@ -54,4 +54,10 @@ export class ProductsService implements OnModuleInit {
       stockQuantity: dto.stockQuantity,
     });
   }
+
+  disableProduct(id: number): Observable<ProductResponse> {
+    return this.productService.disableProduct({
+      id,
+    });
+  }
 }

@@ -46,4 +46,9 @@ export class ProductsController {
   ) {
     return this.productsService.updateInventory(id, dto);
   }
+
+  @Patch(':id/disable')
+  disableProduct(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.disableProduct(id);
+  }
 }
