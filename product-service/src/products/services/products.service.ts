@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { ProductsRepository } from '../repositories/products.repository';
+import { GetProductsDto } from '../dto/get-products.dto';
 
 @Injectable()
 export class ProductsService {
@@ -10,12 +11,11 @@ export class ProductsService {
     return this.repository.createProduct(dto);
   }
 
-  async findAll(page: number, limit: number, search?: string) {
-    const { products, totalItems } = await this.repository.findAll(
-      page,
-      limit,
-      search,
-    );
+  async findAll(query: GetProductsDto) {
+    const page = query.page ?? 1;
+    const limit = query.limit ?? 10;
+
+    const { products, totalItems } = await this.repository.findAll(query);
 
     const totalPages = Math.ceil(totalItems / limit);
 

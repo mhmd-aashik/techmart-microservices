@@ -33,6 +33,12 @@ export interface GetProductByIdRequest {
 export interface GetProductsRequest {
   page: number;
   limit: number;
+  search?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  inStock?: boolean;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
 }
 
 export interface PaginationMeta {

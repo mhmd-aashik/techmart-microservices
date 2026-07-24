@@ -22,8 +22,8 @@ export class ProductsService implements OnModuleInit {
     return this.productService.createProduct(dto);
   }
 
-  findAll(dto: GetProductsQueryDto) {
-    return this.productService.getProducts(dto);
+  findAll(query: GetProductsQueryDto) {
+    return this.productService.getProducts(query);
   }
 
   findById(id: number) {

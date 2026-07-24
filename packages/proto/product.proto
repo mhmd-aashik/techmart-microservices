@@ -43,6 +43,13 @@ message GetProductsRequest {
   int32 page = 1;
   int32 limit = 2;
   string search = 3;
+
+  optional double minPrice = 4;
+  optional double maxPrice = 5;
+  optional bool inStock = 6;
+
+  string sortBy = 7;
+  string sortOrder = 8;
 }
 
 message PaginationMeta {
